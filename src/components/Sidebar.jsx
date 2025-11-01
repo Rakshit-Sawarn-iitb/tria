@@ -27,7 +27,6 @@ function Sidebar({
 
   return (
     <>
-      {/* 🔹 Mobile Header */}
       <div className="md:hidden flex flex-col bg-white border-b border-gray-200">
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-2 text-xl font-semibold">
@@ -48,7 +47,6 @@ function Sidebar({
           </button>
         </div>
 
-        {/* 🔹 Search bar always visible on mobile */}
         <div className="px-4 pb-3">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-3 text-gray-400" />
@@ -63,7 +61,6 @@ function Sidebar({
         </div>
       </div>
 
-      {/* 🔹 Sidebar */}
       <aside
         className={`fixed md:static top-0 left-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col transform transition-transform duration-300 ease-in-out z-40
         ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
@@ -79,7 +76,6 @@ function Sidebar({
           </span>
         </div>
 
-        {/* 🔹 Search bar only visible in desktop sidebar */}
         <div className="hidden md:block px-4 pb-4 pt-4">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-3 text-gray-400" />
@@ -92,8 +88,6 @@ function Sidebar({
             />
           </div>
         </div>
-
-        {/* 🔹 Views */}
         <div className="px-4 text-gray-500 uppercase text-xs font-semibold mb-2">
           Views
         </div>
@@ -121,7 +115,6 @@ function Sidebar({
         </ul>
       </aside>
 
-      {/* 🔹 Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-30 md:hidden z-30"
