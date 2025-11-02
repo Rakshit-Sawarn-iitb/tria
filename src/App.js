@@ -8,6 +8,7 @@ function App() {
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [activeView, setActiveView] = useState("All Contacts");
   const [searchTerm, setSearchTerm] = useState("");
+  const [groupView, setGroupView] = useState("");
 
   const fetchAllContacts = async () => {
     try {
@@ -37,6 +38,17 @@ function App() {
     setFilteredContacts(updated);
   }, [contacts, activeView, searchTerm]);
 
+  useEffect(() => {
+    let updated = [...contacts];
+
+    if (groupView === "Friends") updated = updated.filter((c) => c.group?.includes("Friends"));
+    else if (groupView === "Family") updated = updated.filter((c) => c.group?.includes("Family"));
+    else if (groupView === "Work") updated = updated.filter((c) => c.group?.includes("Work"));
+    else if (groupView === "All") updated = [...contacts];
+
+    setFilteredContacts(updated);
+  }, [contacts, groupView]);
+
   return (
     <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-gray-50">
       <Sidebar
@@ -45,6 +57,8 @@ function App() {
         setActiveView={setActiveView}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        groupView={groupView}
+        setGroupView={setGroupView}
       />
 
       <div className="flex-1 overflow-auto">

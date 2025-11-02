@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Users, Star, Ban, Search, Menu, X } from "lucide-react";
+import { Users, Star, Ban, Search, Menu, X, UsersRound } from "lucide-react";
 
 function Sidebar({
   activeView,
@@ -7,23 +7,36 @@ function Sidebar({
   contacts,
   searchTerm,
   setSearchTerm,
+  groupView,
+  setGroupView,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const counts = useMemo(
-    () => ({
+  const counts = useMemo(() => {
+    const groupCounts = {};
+    contacts.forEach((c) => {
+      if (Array.isArray(c.group)) {
+        c.group.forEach((g) => {
+          groupCounts[g] = (groupCounts[g] || 0) + 1;
+        });
+      }
+    });
+
+    return {
       all: contacts.length,
       favourites: contacts.filter((c) => c.favourite).length,
       blocked: contacts.filter((c) => c.blocked).length,
-    }),
-    [contacts]
-  );
+      groups: groupCounts,
+    };
+  }, [contacts]);
 
   const views = [
     { name: "All Contacts", icon: <Users size={18} />, count: counts.all },
     { name: "Favorites", icon: <Star size={18} />, count: counts.favourites },
     { name: "Blocked", icon: <Ban size={18} />, count: counts.blocked },
   ];
+
+  const groupNames = Object.keys(counts.groups);
 
   return (
     <>
@@ -88,10 +101,11 @@ function Sidebar({
             />
           </div>
         </div>
+
         <div className="px-4 text-gray-500 uppercase text-xs font-semibold mb-2">
           Views
         </div>
-        <ul className="px-2">
+        <ul className="px-2 mb-4">
           {views.map((view) => (
             <li
               key={view.name}
@@ -102,6 +116,7 @@ function Sidebar({
               }`}
               onClick={() => {
                 setActiveView(view.name);
+                setGroupView("All"); 
                 setIsOpen(false);
               }}
             >
@@ -113,6 +128,43 @@ function Sidebar({
             </li>
           ))}
         </ul>
+
+        {groupNames.length > 0 && (
+          <>
+            <div className="px-4 text-gray-500 uppercase text-xs font-semibold mb-2">
+              Groups
+            </div>
+            <ul className="px-2">
+              {groupNames.map((group) => (
+                <li
+                  key={group}
+                  className={`flex justify-between items-center px-3 py-2 rounded-md cursor-pointer text-sm transition-colors duration-150 ${
+                    groupView === group
+                      ? "bg-green-50 text-green-600 font-semibold"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                  onClick={() => {
+                    if (groupView === group) {
+                      setGroupView("All");
+                    } else {
+                      setGroupView(group);
+                      setActiveView(""); 
+                    }
+                    setIsOpen(false);
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <UsersRound size={16} />
+                    <span>{group}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    {counts.groups[group] || 0}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </aside>
 
       {isOpen && (

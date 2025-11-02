@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Star, Mail, Phone, Ban, Trash2 } from "lucide-react";
+import { Star, Mail, Phone, Ban, Trash2, Menu } from "lucide-react";
 import API from "../config/api";
 import ConfirmDialog from "./confirm";
+import GroupDialog from "./group";
 
 const ContactCard = ({ contact, refreshContacts }) => {
   const [showConfirm, setShowConfirm] = useState(false);
-
+  const [showGroupMenu, setShowGroupMenu] = useState(false);
   const getInitials = (name) =>
     name?.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
 
@@ -90,6 +91,12 @@ const ContactCard = ({ contact, refreshContacts }) => {
             >
               <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
+             <button
+              onClick={() => setShowGroupMenu(true)}
+              className="p-1.5 sm:p-2 rounded-full text-gray-400 hover:text-red-400 hover:bg-red-50 transition-colors"
+            >
+              <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
           </div>
         </div>
 
@@ -107,14 +114,14 @@ const ContactCard = ({ contact, refreshContacts }) => {
             </div>
           )}
         </div>
-        {contact.groups?.length > 0 && (
+        {contact.group?.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {contact.groups.map((group, i) => (
+            {contact.group.map((g, i) => (
               <span
                 key={i}
                 className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full font-medium truncate"
               >
-                {group}
+                {g}
               </span>
             ))}
           </div>
@@ -126,6 +133,13 @@ const ContactCard = ({ contact, refreshContacts }) => {
         onConfirm={onDeleteContact}
         onCancel={() => setShowConfirm(false)}
         message={`Are you sure you want to delete ${contact.name}?`}
+      />
+      <GroupDialog
+        isOpen={showGroupMenu}
+        onComplete={refreshContacts}
+        onClose={() => setShowGroupMenu(false)}
+        contactId={contact.id}
+        currentGroups={contact.group}
       />
     </>
   );
