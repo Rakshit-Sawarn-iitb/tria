@@ -1,6 +1,6 @@
 ---
 
-# Tria — Contact List (React)
+# Tria Contact List
 
 A single-page **Contact List Application** built using **React** as part of the **Tria Frontend Assignment**.
 The app allows users to view, search, add, group, block/unblock, favourite, and delete contacts with a clean and minimal interface.
