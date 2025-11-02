@@ -84,8 +84,8 @@ Each contact follows the structure:
 ```json
 {
   "id": 1,
-  "name": "John Doe",
-  "email": "john@example.com",
+  "name": "Rakshit",
+  "email": "rakshit@example.com",
   "contactNumber": "9876543210",
   "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
   "favourite": false,
