@@ -7,7 +7,6 @@ function GroupDialog({ isOpen, contactId, currentGroups = [], onClose, onComplet
   useEffect(() => {
     if (isOpen) {
       if (Array.isArray(currentGroups)) {
-        console.log("Current Groups:", currentGroups);
         setSelectedGroups(currentGroups);
       } else if (typeof currentGroups === "string" && currentGroups.trim() !== "") {
         setSelectedGroups(currentGroups.split(",").map((g) => g.trim()));
