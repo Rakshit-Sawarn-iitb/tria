@@ -45,7 +45,9 @@ src/
  ┣ App.jsx
  ┗ index.css
 ```
-
+---
+## Deployed
+The deployed version can be accessed here: [https://tria-eight.vercel.app/](https://tria-eight.vercel.app/)
 ---
 
 ## Setup Instructions
