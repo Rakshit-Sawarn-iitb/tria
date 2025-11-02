@@ -61,12 +61,10 @@ function App() {
         setGroupView={setGroupView}
       />
 
-      <div className="flex-1 overflow-auto">
-        <ContactSection
-          contacts={filteredContacts}
-          refreshContacts={fetchAllContacts}
-        />
-      </div>
+      <ContactSection
+        contacts={filteredContacts}
+        refreshContacts={fetchAllContacts}
+      />
     </div>
   );
 }
