@@ -4,7 +4,9 @@
 
 A single-page **Contact List Application** built using **React** as part of the **Tria Frontend Assignment**.
 The app allows users to view, search, add, group, block/unblock, favourite, and delete contacts with a clean and minimal interface.
-
+---
+## Deployed
+The deployed version can be accessed here: [https://tria-eight.vercel.app/](https://tria-eight.vercel.app/)
 ---
 
 ## Features
@@ -45,9 +47,6 @@ src/
  ┣ App.jsx
  ┗ index.css
 ```
----
-## Deployed
-The deployed version can be accessed here: [https://tria-eight.vercel.app/](https://tria-eight.vercel.app/)
 ---
 
 ## Setup Instructions
